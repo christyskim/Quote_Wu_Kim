@@ -1,5 +1,4 @@
 
-
 /**
  * Quote data object.
  * @author Mongkoldech Rajapakdee & Jeff offutt

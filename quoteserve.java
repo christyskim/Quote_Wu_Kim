@@ -1,4 +1,3 @@
-package quotes;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

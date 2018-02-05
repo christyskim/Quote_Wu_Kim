@@ -3,40 +3,21 @@ import java.util.Scanner;
 
 public class main {
 
+	static int recentSearchCount = 0;
+	static String[] a = new String[5];
+	
 	public static void main(String[] args) {
 		
 		QuoteList q = InitList(); ///Initialize list and create quotes
+		recentSearch("");//changed
 		userChoice(q);//ask user what they want to do
 		
 	}
 	
 	public static QuoteList InitList(){ ///this is where we add or delete quotes
+        QuoteSaxParser parser= new QuoteSaxParser ("quotes.xml");
+        return parser.getQuoteList();
 		
-//		QuoteList tempList = new QuoteList();
-//		
-//		Quote q1 = makeQuote("I know that you believe you understand what "
-//				+ "you think I said, but I am not sure you realize that what "
-//				+ "you heard is not what I meant.","Richard Nixon");
-//		Quote q2 = makeQuote("Nothing ever becomes real till it is experienced; even a proverb "
-//				+ "is no proverb to you till your life has illustrated it.","John Keats");
-//		Quote q3 = makeQuote("oh dang","Zi");
-//		Quote q4 = makeQuote("The significant problems we face cannot be solved at the same level "
-//				+ "of thinking we were at when we created them.","Albert Einstein");
-//		Quote q5 = makeQuote("Legs are the wheels of creativity","Albert Einstein");
-//		
-//		
-//		
-//		tempList.setQuote(q1);
-//		tempList.setQuote(q2);
-//		tempList.setQuote(q3);
-//		tempList.setQuote(q4);
-//		tempList.setQuote(q5);
-//
-//		
-//		
-//		return tempList;
-		QuoteSaxParser parser= new QuoteSaxParser ("quotes.xml");
-		return parser.getQuoteList();
 	}
 	
 	public static void userChoice(QuoteList list){
@@ -62,62 +43,74 @@ public class main {
 					
 					boolean innerSwitchStop = true;
 						while(innerSwitchStop){
-							choice = sc.nextLine();
+                            choice = sc.nextLine();
 							switch(choice){
 								case "quote":
 									boolean found = false;
 									System.out.print("type in quote: ");
-									choice = sc.nextLine();
+									choice = sc.nextLine(); 
+									
 									for(int i= 0; i < list.getSize(); i++){ ///loop through the list
 										if(list.getQuote(i).getQuoteText().contains(choice)){ //compare
 											found = true;
 											System.out.println(list.getQuote(i).getQuoteText());
 											System.out.println("———"+list.getQuote(i).getAuthor());
+											//recentSearch(choice);//changed
 										}
 									}
 									if(found==false){
 										System.out.println("quote not found");
+										System.out.println();
+										//recentSearch(choice);//changed
 									}
 									innerSwitchStop = false;
+                                    recentSearch(choice);
 									break;
 								case "author":
 									
 									System.out.print("type in author: ");
 									choice = sc.nextLine();
+						
 									found = false;
 									for(int i= 0; i < list.getSize(); i++){///loop through the list
 										if(list.getQuote(i).getAuthor().equals(choice)){//compare
 											found = true;
 											System.out.println(list.getQuote(i).getQuoteText());
 											System.out.println("———"+choice);
+											//changed
 										}
 									}
 									if(found==false){
 										System.out.println("quote not found");
+										recentSearch(choice);//changed
 									}
 									innerSwitchStop = false;
-									
+									recentSearch(choice);
 									break;
 		
 								case "both":
 									System.out.print("--> ");
 									choice = sc.nextLine();
+									recentSearch(choice);
 									found = false;
 									for(int i= 0; i < list.getSize(); i++){///loop through the list
 										if(list.getQuote(i).getQuoteText().contains(choice)||list.getQuote(i).getAuthor().equals(choice)){
 											found = true;
 											System.out.println(list.getQuote(i).getQuoteText());
 											System.out.println("———"+list.getQuote(i).getAuthor());
+											//recentSearch(choice);//changed
 										}
 									}
 									if(found==false){
 										System.out.println("quote not found");
+										//recentSearch(choice);//changed
 									}
 									innerSwitchStop = false;
+                                    recentSearch(choice);
 									break;
 								default:
 									System.out.println("quote not found");
-									break;
+										break;
 							}///switch close brace
 						}
 					break;
@@ -200,4 +193,38 @@ public class main {
 		System.out.println();
 	}
 
+	public static void recentSearch(String search){//changed
+		
+		System.out.println(">>>>>>>>>>>>>>>>>>recent search<<<<<<<<<<<<<<<<<<");
+		System.out.println();
+		
+		if(recentSearchCount==0){
+			for(int i = 0; i < 5; i++){
+				a[i] = "";
+			}
+			System.out.println("");
+		}else{
+			if(recentSearchCount<5){
+				a[recentSearchCount-1] = search;
+				for(int i = 0; i < recentSearchCount; i++){
+						System.out.println(i+1 + ". "+ a[i]);
+				}
+			}else{
+				for(int i = 0; i < 4; i++){
+					a[i] = a[i+1];
+				}
+				a[4] = search;
+				for(int i = 0; i < 5; i++){
+					System.out.println(i+1 + ". "+ a[i]);
+				}
+			}
+
+		}
+		System.out.println();
+		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>><<<<<<<<<<<<<<<<<<<<<<<<<");
+		System.out.println();
+		recentSearchCount++;
+		
+		
+	}
 }
