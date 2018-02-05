@@ -1,4 +1,3 @@
-package quotes;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,7 +9,7 @@ import java.util.Random;
  */
 public class QuoteList
 {
-   private ArrayList<Quote> quoteArray;
+   private static ArrayList<Quote> quoteArray;
 
    // These constants are used in the servlet
    /* package */ static final int SearchAuthorVal = 0;
@@ -18,8 +17,9 @@ public class QuoteList
    /* package */ static final int SearchBothVal   = 2;
 
    // For returning a random quote
-   private Random randomGen;
+   private static Random randomGen;
    private final int seed = 19580427;
+
 
    // Default constructor creates a new list and initializes the random seed
    public QuoteList()
@@ -82,8 +82,9 @@ public class QuoteList
     * Retuen a random quote object from the list.
     * @return a random Quote
     */
-   public Quote getRandomQuote ()
+   public static Quote getRandomQuote ()
    {
-      return quoteArray.get (randomGen.nextInt (quoteArray.size()));
+	
+     return quoteArray.get (randomGen.nextInt (quoteArray.size()));
    }
 }

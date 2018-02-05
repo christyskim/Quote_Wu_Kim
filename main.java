@@ -1,4 +1,3 @@
-package quotes;
 
 import java.util.Scanner;
 
@@ -13,30 +12,31 @@ public class main {
 	
 	public static QuoteList InitList(){ ///this is where we add or delete quotes
 		
-		QuoteList tempList = new QuoteList();
-		
-		Quote q1 = makeQuote("I know that you believe you understand what "
-				+ "you think I said, but I am not sure you realize that what "
-				+ "you heard is not what I meant.","Richard Nixon");
-		Quote q2 = makeQuote("Nothing ever becomes real till it is experienced; even a proverb "
-				+ "is no proverb to you till your life has illustrated it.","John Keats");
-		Quote q3 = makeQuote("oh dang","Zi");
-		Quote q4 = makeQuote("The significant problems we face cannot be solved at the same level "
-				+ "of thinking we were at when we created them.","Albert Einstein");
-		Quote q5 = makeQuote("Legs are the wheels of creativity","Albert Einstein");
-		
-		
-		
-		tempList.setQuote(q1);
-		tempList.setQuote(q2);
-		tempList.setQuote(q3);
-		tempList.setQuote(q4);
-		tempList.setQuote(q5);
-
-		
-		
-		return tempList;
-		
+//		QuoteList tempList = new QuoteList();
+//		
+//		Quote q1 = makeQuote("I know that you believe you understand what "
+//				+ "you think I said, but I am not sure you realize that what "
+//				+ "you heard is not what I meant.","Richard Nixon");
+//		Quote q2 = makeQuote("Nothing ever becomes real till it is experienced; even a proverb "
+//				+ "is no proverb to you till your life has illustrated it.","John Keats");
+//		Quote q3 = makeQuote("oh dang","Zi");
+//		Quote q4 = makeQuote("The significant problems we face cannot be solved at the same level "
+//				+ "of thinking we were at when we created them.","Albert Einstein");
+//		Quote q5 = makeQuote("Legs are the wheels of creativity","Albert Einstein");
+//		
+//		
+//		
+//		tempList.setQuote(q1);
+//		tempList.setQuote(q2);
+//		tempList.setQuote(q3);
+//		tempList.setQuote(q4);
+//		tempList.setQuote(q5);
+//
+//		
+//		
+//		return tempList;
+		QuoteSaxParser parser= new QuoteSaxParser ("quotes.xml");
+		return parser.getQuoteList();
 	}
 	
 	public static void userChoice(QuoteList list){
@@ -117,7 +117,7 @@ public class main {
 									break;
 								default:
 									System.out.println("quote not found");
-										break;
+									break;
 							}///switch close brace
 						}
 					break;
